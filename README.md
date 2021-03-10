@@ -6,7 +6,7 @@ I have tested this out on local server with single player on. If you want to use
 
 ## How to use
 
-Download the source code of the plugin and convert into .phar format and put the genrated .phar file in your server's plugin folder
+You can download the phar file [here](https://poggit.pmmp.io/ci/VpsOP/ApexMiner/ApexMiner)
 
 This plugin has only one command `/miner [int:count] [int:level] [string:player]` and a permission for this command `apexminer.command.miner`
 
