@@ -1,0 +1,29 @@
+
+#                              __  __ _
+#      /\                     |  \/  (_)
+#     /  \   _ __   _____  __ | \  / |_ _ __   ___ _ __
+#    / /\ \ | '_ \ / _ \ \/ / | |\/| | | '_ \ / _ \ '__|
+#   / ____ \| |_) |  __/>  <  | |  | | | | | |  __/ |
+#  /_/    \_\ .__/ \___/_/\_\ |_|  |_|_|_| |_|\___|_|
+#           | |
+#           |_|
+
+
+# ID of the block you want to use as miner 
+miner-block-id: 201
+
+# If it is set to false then OnBreak miner will be added to the inventory of the player 
+#if the player has space in their inventory or if set to true then miner will drop on break like a regular block
+drop-on-break: false
+
+
+# Base delay for miners in seconds
+# i.e if Miner is level 5 then this base delay will be divided by 5 so delay for level % miner will be 2 seconds
+miner-delay: 10
+
+# Message which will be send to the one who gives miner using the command
+# {player} -> prints the player to whom miner(s) is(are) given
+# {count} -> prints the count of miner(s) given.
+# {miner} -> prints "Miner Level 5" for a level 5 Miner
+player-given-miner: "Player {player} has been given {count} {miner}"
+

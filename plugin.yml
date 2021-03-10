@@ -1,0 +1,6 @@
+---
+name: ApexMiner
+version: 0.0.2
+main: ApexDev\ApexMiner\Main
+api: 3.17.5
+...
