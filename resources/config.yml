@@ -21,6 +21,9 @@ drop-on-break: false
 # i.e if Miner is level 5 then this base delay will be divided by 5 so delay for level % miner will be 2 seconds
 miner-delay: 10
 
+#If this is set to true, a fizz sound will be played when a block is mined by autominer
+fizz-sound: true
+
 # Message which will be send to the one who gives miner using the command
 # {player} -> prints the player to whom miner(s) is(are) given
 # {count} -> prints the count of miner(s) given.

@@ -40,8 +40,6 @@ class EventListener implements Listener
                 $tileinfo = new TileInfo($event->getBlock(), ["id" => "simpleTile", "level" => $level, 'owner' => $player->getName()]);
                 new SimpleTile($player->getLevel(), $tileinfo); 
             }
-            // $uptile = $player->getLevel()->getTile($block->asVector3()->floor()->up(1));
-            // if(!$uptile instanceof TileChest) return;
             $minerDelay = (int)(((int)ConfigManager::getValue("miner-delay") / $level) * 20);
             Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MinerTask($block), $minerDelay);
         }
@@ -52,7 +50,6 @@ class EventListener implements Listener
     {
         $player = $event->getPlayer();
         $block = $event->getBlock();
-        // $bbelow = $block->getLevel()->getBlock($event->getBlock()->floor()->down(1));
 
         if ($event->isCancelled()) return;
 
@@ -89,7 +86,6 @@ class EventListener implements Listener
         $chunkTiles = $event->getChunk()->getTiles();
         foreach($chunkTiles as $tile){
             if($tile instanceof SimpleTile){
-                $event->getLevel()->getServer()->broadcastMessage("Found a autominer Tile");
                 $block = $tile->getBlock();
                 $level = $tile->getData("level")->getValue();
                 if($level < 1) return;
