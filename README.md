@@ -3,9 +3,7 @@
 
 # PocketMine-MP Autominers
 
-
-This plugin was created in my free time as an attempt to make a fully working PocketMine plugin.
-I have tested this out on local server with single player on. If you want to use this plugin in your own server then kindly take some time for testing
+This plugin adds autominers to your Pocketmine-MP server
 
 ## How to use
 
@@ -15,6 +13,9 @@ This plugin has only one command `/miner [int:count] [int:level] [string:player]
 
 That's all you need to know to use this plugin
 
+## How miners work?
+
+Run the command. It will give you a miner. Place the miner over Cobble generator or any other type of block generator then put a chest over the miner. That's all, now miner will mine the block below it and put the drops in the chest over it.
 
 ### Issues
 
