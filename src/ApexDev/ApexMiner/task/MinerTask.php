@@ -3,6 +3,7 @@
 namespace ApexDev\ApexMiner\task;
 
 use ApexDev\ApexMiner\Main;
+use ApexDev\ApexMiner\utils\ConfigManager;
 use pocketmine\block\Block;
 use pocketmine\tile\Chest as TIleChest;
 use pocketmine\item\Item;
@@ -36,7 +37,12 @@ class MinerTask extends Task
 
             $drops = $downBlock->getDrops(Item::get(Item::DIAMOND_PICKAXE));
             $level->setBlock($downBlock->asVector3(), Block::get(Block::AIR));
-            $level->addSound(new FizzSound($this->minerBlock->asVector3()));
+
+            $fizzEnabled  = ConfigManager::getToggle("fizz-sound");
+            if($fizzEnabled) {
+                $level->addSound(new FizzSound($this->minerBlock->asVector3()));
+            }
+            
             foreach ($drops as $drop) {
                 $upTile->getInventory()->addItem($drop);
             }

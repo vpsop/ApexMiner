@@ -2,9 +2,8 @@
 
 namespace ApexDev\ApexMiner;
 
-use DenielWorld\EzTiles\EzTiles;
-
 use ApexDev\ApexMiner\commands\MinerCommand;
+use ApexDev\ApexMiner\tiles\MinerTile;
 use ApexDev\ApexMiner\utils\ConfigManager;
 
 use pocketmine\item\Item;
@@ -12,6 +11,7 @@ use pocketmine\nbt\tag\CompoundTag;
 use pocketmine\nbt\tag\IntTag;
 use pocketmine\nbt\tag\ListTag;
 use pocketmine\plugin\PluginBase;
+use pocketmine\tile\Tile;
 use pocketmine\utils\TextFormat as C;
 
 
@@ -32,9 +32,8 @@ class Main extends PluginBase{
         self::$instance = $this;
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register("ApexMiner", new MinerCommand($this));
-        
-        EzTiles::register($this);
-        EzTiles::init();
+
+        Tile::registerTile(MinerTile::class, ["MinerTile"]);
         
     }
 
