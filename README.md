@@ -1,3 +1,6 @@
+[![](https://poggit.pmmp.io/shield.state/ApexMiner)](https://poggit.pmmp.io/p/ApexMiner)
+
+
 # PocketMine-MP Autominers
 
 
