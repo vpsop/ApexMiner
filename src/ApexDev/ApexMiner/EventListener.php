@@ -5,17 +5,13 @@ declare(strict_types=1);
 namespace ApexDev\ApexMiner;
 
 use ApexDev\ApexMiner\task\MinerTask;
+use ApexDev\ApexMiner\tiles\MinerTile;
 use ApexDev\ApexMiner\utils\ConfigManager;
-use DenielWorld\EzTiles\data\TileInfo;
-use DenielWorld\EzTiles\tile\SimpleTile;
 use pocketmine\block\Block;
 use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
-use pocketmine\event\block\BlockUpdateEvent;
 use pocketmine\event\level\ChunkLoadEvent;
-use pocketmine\event\level\ChunkPopulateEvent;
 use pocketmine\event\Listener;
-use pocketmine\tile\Chest as TileChest;
 
 class EventListener implements Listener
 {
@@ -36,9 +32,8 @@ class EventListener implements Listener
             if($level === 0) return;
             
             $tile = $player->getLevel()->getTile($block->asVector3());
-            if (!$tile instanceof SimpleTile) {
-                $tileinfo = new TileInfo($event->getBlock(), ["id" => "simpleTile", "level" => $level, 'owner' => $player->getName()]);
-                new SimpleTile($player->getLevel(), $tileinfo); 
+            if (!$tile instanceof MinerTile) {
+                new MinerTile($player->getLevel(), $event->getBlock(), ["id" => "MinerTile", "level" => $level, 'owner' => $player->getName()]);
             }
             $minerDelay = (int)(((int)ConfigManager::getValue("miner-delay") / $level) * 20);
             Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MinerTask($block), $minerDelay);
@@ -55,9 +50,9 @@ class EventListener implements Listener
 
 
         $tile = $event->getBlock()->getLevel()->getTile($block);
-        if (!$tile instanceof SimpleTile) return;
+        if (!$tile instanceof MinerTile) return;
 
-        $level = $tile instanceof SimpleTile ? $tile->getData("level")->getValue() : 0;
+        $level = $tile instanceof MinerTile ? $tile->getData("level")->getValue() : 0;
         if ($level === 0) return $event->setCancelled(true);
 
         $miner = Main::getInstance()->getMiner($level, 1);
@@ -85,7 +80,7 @@ class EventListener implements Listener
     {
         $chunkTiles = $event->getChunk()->getTiles();
         foreach($chunkTiles as $tile){
-            if($tile instanceof SimpleTile){
+            if($tile instanceof MinerTile){
                 $block = $tile->getBlock();
                 $level = $tile->getData("level")->getValue();
                 if($level < 1) return;
