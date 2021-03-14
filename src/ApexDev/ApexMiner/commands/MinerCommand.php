@@ -45,7 +45,12 @@ class MinerCommand extends PluginCommand
             return false;
         }
 
-        if (empty($args)) {
+        if (empty($args) < 2) {
+            $sender->sendMessage(Main::PREFIX . C::RED . $this->getUsage());
+            return false;
+        }
+
+        if (count($args)) {
             $sender->sendMessage(Main::PREFIX . C::RED . $this->getUsage());
             return false;
         }
