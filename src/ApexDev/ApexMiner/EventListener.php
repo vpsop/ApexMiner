@@ -33,7 +33,7 @@ class EventListener implements Listener
             
             $tile = $player->getLevel()->getTile($block->asVector3());
             if (!$tile instanceof MinerTile) {
-                new MinerTile($player->getLevel(), $event->getBlock(), ["id" => "MinerTile", "level" => $level, 'owner' => $player->getName()]);
+                new MinerTile($player->getLevel(), $event->getBlock()->asPosition(), $level, $player->getName());
             }
             $minerDelay = (int)(((int)ConfigManager::getValue("miner-delay") / $level) * 20);
             Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MinerTask($block), $minerDelay);
@@ -52,7 +52,7 @@ class EventListener implements Listener
         $tile = $event->getBlock()->getLevel()->getTile($block);
         if (!$tile instanceof MinerTile) return;
 
-        $level = $tile instanceof MinerTile ? $tile->getData("level")->getValue() : 0;
+        $level = $tile instanceof MinerTile ? $tile->getMinerLevel() : 0;
         if ($level === 0) return $event->setCancelled(true);
 
         $miner = Main::getInstance()->getMiner($level, 1);
@@ -76,13 +76,13 @@ class EventListener implements Listener
     }
 
 
-    public function onChunkPopulate(ChunkLoadEvent $event)
+    public function onChunkLoad(ChunkLoadEvent $event)
     {
         $chunkTiles = $event->getChunk()->getTiles();
         foreach($chunkTiles as $tile){
             if($tile instanceof MinerTile){
                 $block = $tile->getBlock();
-                $level = $tile->getData("level")->getValue();
+                $level = $tile->getMinerLevel();
                 if($level < 1) return;
                 $belowBlock = $event->getLevel()->getBlock($block->asVector3()->floor()->down(1), false, false);
                 if($belowBlock->getId() === Block::AIR){
@@ -93,7 +93,5 @@ class EventListener implements Listener
             }
         }
     }
-
-
-    
+  
 }
