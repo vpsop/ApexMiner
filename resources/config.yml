@@ -13,7 +13,7 @@
 miner-block-id: 201
 
 # If it is set to false then OnBreak miner will be added to the inventory of the player 
-#if the player has space in their inventory or if set to true then miner will drop on break like a regular block
+# if the player has space in their inventory or if set to true then miner will drop on break like a regular block
 drop-on-break: false
 
 
@@ -21,7 +21,7 @@ drop-on-break: false
 # i.e if Miner is level 5 then this base delay will be divided by 5 so delay for level % miner will be 2 seconds
 miner-delay: 10
 
-#If this is set to true, a fizz sound will be played when a block is mined by autominer
+# If this is set to true, a fizz sound will be played when a block is mined by autominer
 fizz-sound: true
 
 # Message which will be send to the one who gives miner using the command

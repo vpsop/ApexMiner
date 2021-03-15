@@ -12,6 +12,8 @@ use pocketmine\event\block\BlockBreakEvent;
 use pocketmine\event\block\BlockPlaceEvent;
 use pocketmine\event\level\ChunkLoadEvent;
 use pocketmine\event\Listener;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\tile\Tile;
 
 class EventListener implements Listener
 {
@@ -26,6 +28,7 @@ class EventListener implements Listener
         $player = $event->getPlayer();
         $block = $event->getBlock();
         $nbt = $event->getItem()->getNamedTag();
+        $position = $block->asPosition();
 
         if ($nbt->hasTag("ApexMiner")) {
             $level = $nbt->getInt("ApexMiner_Level", 0);
@@ -33,7 +36,17 @@ class EventListener implements Listener
             
             $tile = $player->getLevel()->getTile($block->asVector3());
             if (!$tile instanceof MinerTile) {
-                new MinerTile($player->getLevel(), $event->getBlock()->asPosition(), $level, $player->getName());
+
+                $nbt = new CompoundTag();
+
+                $nbt->setInt(Tile::TAG_X, $position->x);
+                $nbt->setInt(Tile::TAG_Y, $position->y);
+                $nbt->setInt(Tile::TAG_Z, $position->z);
+                $nbt->setString("id", "MinerTile");
+                $nbt->setInt("minerLevel", $level);
+                $nbt->setString("minerOwner", $player->getName());
+
+                new MinerTile($player->getLevel(), $nbt);
             }
             $minerDelay = (int)(((int)ConfigManager::getValue("miner-delay") / $level) * 20);
             Main::getInstance()->getScheduler()->scheduleRepeatingTask(new MinerTask($block), $minerDelay);
