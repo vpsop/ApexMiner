@@ -13,6 +13,7 @@ use pocketmine\scheduler\Task;
 
 class MinerTask extends Task
 {
+    /** @var Block */
     private $minerBlock;
 
     public function __construct(Block $minerBlock)
@@ -20,6 +21,14 @@ class MinerTask extends Task
         $this->minerBlock = $minerBlock;
     }
 
+    /**
+     * OnRun function for the task. 
+     * Basically checks if the tile above miner is a chest tile, if true, 
+     * break the block below the diamond pickaxe and place the drops in the chest inventory above
+     *
+     * @param int $currentTick
+     * @return void
+     */
     public function onRun(int $currentTick)
     {
         

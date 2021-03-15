@@ -18,6 +18,12 @@ class MinerTile extends Tile
     private $minerOwner;
 
 
+    /**
+     * MinerTile constructor
+     *
+     * @param Level $level
+     * @param CompoundTag $nbt
+     */
     public function __construct(Level $level, CompoundTag $nbt)
     {
         $this->minerLevel = $nbt->getInt("minerLevel");
@@ -29,18 +35,32 @@ class MinerTile extends Tile
 
     }
 
+    /**
+     * Gives Miner Level
+     *
+     * @return integer
+     */
     public function getMinerLevel() : int
     {
         return $this->minerLevel;
     }
 
+    /**
+     * Gives the GamerTag of the player who placed the miner
+     * No current use, Maybe used in future versions
+     *
+     * @return string
+     */
     public function getMinerOwner() : string
     {
         return $this->minerOwner;
     }
 
     
-    
+    /**
+     * @param CompoundTag $nbt
+     * @return void
+     */
     public function writeSaveData(CompoundTag $nbt): void
     {
         foreach ($this->nbt->getValue() as $tag) {
@@ -48,7 +68,10 @@ class MinerTile extends Tile
         }
     }
 
-    
+    /**
+     * @param CompoundTag $nbt
+     * @return void
+     */
     public function readSaveData(CompoundTag $nbt): void
     {
         $this->nbt = $nbt;

@@ -54,6 +54,13 @@ class EventListener implements Listener
     }
 
 
+    /**
+     * On Block break, check if the block broken was a miner if so
+     * drop the miner or place it in player inventory depend on configuration
+     *
+     * @param BlockBreakEvent $event
+     * @return void
+     */
     public function onBlockBreak(BlockBreakEvent $event)
     {
         $player = $event->getPlayer();
@@ -89,6 +96,12 @@ class EventListener implements Listener
     }
 
 
+    /**
+     * For server restart
+     *
+     * @param ChunkLoadEvent $event
+     * @return void
+     */
     public function onChunkLoad(ChunkLoadEvent $event)
     {
         $chunkTiles = $event->getChunk()->getTiles();
